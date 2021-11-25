@@ -128,7 +128,8 @@ myDocs.mkdirs();
 
 Кода функции для выбора изображения и захвата изображения:
 
-``` fun selectImageInAlbum() {
+``` 
+fun selectImageInAlbum() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         if (intent.resolveActivity(packageManager) != null) {
@@ -146,6 +147,23 @@ myDocs.mkdirs();
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1
     }
 ``` 
+Код функции для вывода изображения:
+
+``` 
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    Bitmap img = null;
+            if (requestCode == Constants.REQUEST) {
+                Uri selectedImage = data.getData();
+                try {
+                    img = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                circleImageView.setImageBitmap(img);
+            }
+super.onActivityResult(requestCode, resultCode, data);
+    }
+```
 
 
 
